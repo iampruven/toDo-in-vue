@@ -2,23 +2,34 @@
  <h1>To Do App</h1>
  <form @submit.prevent="addNewTodo">
    <label>Task</label>
-   <input name="newTodo">
+   <input v-model="newTodo" name="newTodo">
    <button>Submit</button>
  </form>
- <!-- <h3></h3> -->
+ <ul>
+  <li :key="todo.id" v-for="todo in toDos">
+    <h3>{{todo.content}}</h3>
+  </li>
+ </ul>
 </template>
 
 <script>
 
+import { ref } from 'vue';
 
 export default {
-  
+
   setup(){
+    const newTodo = ref('')
+    const toDos = ref([])
 
     function addNewTodo(){
-      console.log("hello")
+      toDos.value.push({id: Date.now(), done:false, content: newTodo.value})
     }
-    return {addNewTodo}
+    return {
+      toDos,
+      newTodo,
+      addNewTodo
+      }
   }
   
 }
