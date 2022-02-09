@@ -6,8 +6,9 @@
    <button>Submit</button>
  </form>
  <ul>
-  <li  v-for="toDo in toDos" :key="toDo.id" class="toDo">
+  <li  v-for="(toDo,index) in toDos" :key="toDo.id" class="toDo">
     <h3 :class="{ done: toDo.done }" @click="toggleDone(toDo)">{{toDo.content}}</h3>
+    <button @click="removeToDo(index)">Remove Todo</button>
   </li>
 
  </ul>
@@ -30,11 +31,15 @@ export default {
     function toggleDone(toDo){
       toDo.done = !toDo.done
     }
+    function removeToDo(index){
+      toDos.value.splice(index,1)
+    }
     return {
       toggleDone,
       toDos,
       newTodo,
-      addNewTodo
+      addNewTodo,
+      removeToDo
       }
   }
   
